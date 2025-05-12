@@ -6,7 +6,6 @@ function doeServiceRequest($json)
     // Add the session id to the json object.
     $json = json_decode($json, true);
     $json['session'] = $_SESSION['session'];
-    // TODO: Add support for removing session/CID from request.
 
     $json = json_encode($json);
 
