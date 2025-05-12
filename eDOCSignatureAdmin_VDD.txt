@@ -1,0 +1,1863 @@
+        			  Version Description Document for eDOCSignature Admin PHP Pages
+
+						  eDOCSignatureAdmin_VDD.txt
+				Copyright © 2017-2021 eDOC Innovations, Inc.  All Rights Reserved
+- - - - - - -
+Version 8.24.0.13
+Compile Date 26 November 2024
+
+Add hover over to show full email address (E11-T1304)
+- Login to eDSAdmin > Click on the "Send Document" section > In the Requested Documents section click on 'Add one' or 'Add Document (add file icon)' Select Method model will display in that click on 'Use Requested Template' and choose any of the template > click on yes button
+- click on the next button (right top) of the Upload Document page
+- Add two Signer with the same name but different email and click the next button
+- In the Requested Document Page hover over the name to see the signer's email and the width of the container is increased which has the signers
+
+Fix not preventing the user from editing and saving templates with no signing elements (E22-T210)
+- Login to eDSAdmin > Click the "Set Up Templates" section
+- Manage Template > Enter the "Edit Template" screen by clicking on the Edit template button(gear icon) of signing type > Delete all the non-user elements, and save the changes > Save button should be disabled and click back button should prevent the template to save by showing the error message
+
+ix using "Next" navigation button on the manage templates page not retaining search filters with the green search button
+- Make sure you have enough templates to filter by to verify whether filter settings are actually preserved or not.
+- Login -> Manage Templates (Set Up Templates)
+- Test different filter selections. Pressing "Next" will show the next set of results from the initial query while keeping all previous search criteria.
+- Pressing "Next" will show the next set of results from the initial query while keeping all previous search criteria.
+- Using the green search button should sync the filter with the header and it should be preserved on the next button click
+
+Fix issues with creating an eSigner associated with a global user (E11-T1229)
+- Log into eDS with a global user.
+- Navigate to Settings > Users
+- Click the add eSigner button on the top left of the page.
+- The eSigner information will automatically fill in with the global user settings
+- Save the new eSigner
+- The user should be redirected to view the eSigner
+- User can view the eSigner after creating or updating
+
+Upload CSV in signer groups, first line is removed whether or not it's a header (HF2-T943)
+- Login to eDSAdmin > Settings > Signers > Signer Groups > Select or Add a Signer Group > Upload the CSV
+- Verify that the first signer is inserted from the CSV file list of signers, regardless of whether the CSV file has a header.
+
+Add functionality to auto-populate splash name and signer name for the template presented for customizing a signer notification email (Adds to CO1-T8)
+- Log in to the eDs admin site and navigate to the "Send Document" page by selecting the "Send Document" tab.
+- Upload the signing document, then click the "Next" button to proceed to the "Select Signers" page.
+- Add a signer and click on the "Personal Message" icon.
+- A personal message dialog will appear, displaying the ticket email template with auto-populated values for SPLASHNAME and NAME. The user can edit the email content and save the changes.
+- Click the "Preview" button to see how the email template will appear, and use the "Save" button to save the edited template.
+- Proceed to the review page, click the "Send" button, and check the template in your email.
+- Verify that the email notification submitted has the changes you applied earlier.
+- Navigate to the manage doc page using 'Manage Packages' tab.
+- Click on package edit icon ( gear icon ). -> Click the pencil icon under the "Message" column for the signer you personalized the email for
+- Verify that the personal email notification changes are visible here as the changes applied earlier.
+
+- - - - - - -
+Version 8.24.0.12
+Compile Date 13 November 2024
+
+Fix using "Next" navigation button on Manage Templates page not retaining search filters (E11-T1315)
+- Make sure you have enough templates to filter by to verify whether filter settings are actually preserved or not.
+- Login -> Manage Templates (Set Up Templates)
+- Test different filter selections. Pressing "Next" will show the next set of results from the initial query while keeping all previous search criteria.
+
+IDPal integration (IDP-T23)
+- Adjust send process for IDPal integration features (progress on IDP-T23)
+  1. Make sure you have:
+    - go_microservices 8.24.0.4 or higher
+    - A working email address to receive the IDPal verification request.
+    - Signing pages v8.24.0.6
+  1. Log in to eDocAdmin.
+  2. Navigate to the "Send Document" section.
+    - Add or upload the document that requires signing.
+    - Enter the signer details and select the "ID Scan" option for ID verification.
+  3. Send the Document for Verification.
+
+  1.    - After sending, you will receive an email from eDOC for the document sign. Click the provided link in the email to complete the request process.
+
+  4. Access the "Manage Packages" Section.
+    - On the landing page, click the IDPal verification button, which displays the number of pending verification cases.
+  5. Review the Verification Status.
+    You will be redirected to the IDPal Verification page, where the status of each verification (pass/fail/pending) will be displayed.
+  6. Review Pending Cases.
+    - For cases marked as "Pending," click the "Review" button to proceed. This button will only be visible for pending cases.
+  7. Accept or Reject the Verification.
+    - You will be redirected to the submission page, where you can accept or reject the verification by clicking the respective button.
+- IDPal Verification Status Page UI Change (IDP-T39)
+  **Changes Added:**
+  - Updated the sorting format in the IDPal Status table based on the priority(Pending > Fail > Pass).
+  - Implement pagination within the IDPal Status table to handle larger datasets efficiently.
+  - Add a "Created By" column to the IDPal Status table, binding it with the latest modified response data.
+  - Include a "created by" key as a parameter when generating UUIDs.
+  - The refresh button in 'Manage Packages' will update the ID-Pal Verification count.
+  **Steps to test:**
+  - Login to eDSAdmin > click on the 'Manage Packages' section > Click on 'ID-Pal Verification' button to see the Pagination and Created By column  changes
+
+Add the ability to change the 'Tab' order (E22-T198)
+- Make sure you have a RAP_eDS version >= 8.24.0.0
+- Go to the admin page
+- Click on Send document
+- upload a signing document
+- Go to the setup document screen
+- The user should be able to set the tab index on any signing element
+
+Add the ability to customize notification emails per signer in a package (CO1-T8)
+- Make sure the following has been updated and set up as needed:
+  - go_notices 8.24.0.0
+  - MySQLConfig 8.24.0.2
+  - RAP_Pkg 8.24.0.5
+  - RAP_eDS 8.24.0.0
+- Log in to the eDs admin site and navigate to the "Send Document" page by selecting the "Send Document" tab.
+- Upload the signing document, then click the "Next" button to proceed to the "Select Signers" page.
+- Add a signer and click on the "Personal Message" icon.
+- A personal message dialog will appear, displaying the ticket email template, which the user can edit and save.
+- Click the "Preview" button to see how the email template will appear, and use the "Save" button to save the edited template.
+- Proceed to the review page, click the "Send" button, and check the template in your email.
+- Verify that the email notification submitted has the changes you applied earlier.
+- Navigate to the manage doc page using 'Manage Packages' tab.
+- Click on package edit icon ( gear icon ). -> Click the pencil icon under the "Message" column for the signer you personalized the email for
+- Verify that the personal email notification changes are still submitted has the changes you applied earlier.
+
+- - - - - - -
+Version 8.24.0.11
+Compile Date 30 October 2024
+
+Hide manage package "Sign Now"/"Sign Link" buttons for signer group signers (E11-T1301)
+- Log in to the eDs Admin site and navigate to the "send doc" page by selecting the 'Send Document' tab.
+- Upload the signing document, then go to the signer selection page. Add a signer and at least one signer group.
+- Proceed to the next step and send the document for signing.
+- Go to the "manage doc" page using the 'Manage Packages' tab.
+- Edit the most recently created package and verify that the "Create Link" and "Sign Now" options are hidden for the signer
+
+Fix functionality of creating a new signer row when pressing the return key in the Add Signers screen (E11-T1310)
+- Log In to eDs Admin site and navigate to the send doc page using 'Send Document'.
+- Upload signing document and click on 'Next' button.
+- Add a signer.
+- Add another signer field.
+- Enter name and email data that will not automatically populate the signer data.
+- update the signing order to "2".
+- Click back inside the email field and press Enter/return key.
+- Verify that a new row is created and hasn't retained the previous row's name.
+
+Add the ability to replace the file a document in a package uses (CO1-T27)
+- Prereqs:
+  - MySQLConfig 8.24.0.2
+  - RAP_eDS 8.24.0.0
+- **Testing Steps**
+  - Log in to eDs and redirect to managedoc page using Manage Packages tab.
+  - In the packages section, click on the Edit Document icon (gear icon) to access the edit document page.
+  - On the edit document page, click on the Replace Form icon at the top, replace the form, and verify the functionality.
+
+Improve Signer Groups settings screen UI (E11-T1262)
+- Prereqs:
+  - Go Microservices 8.24.0.5
+- Testing Steps:
+  - Login to eDS > Go to Settings > Click on Signers section > Click to Signers Group sub-section of Signers.
+  - Removed Cancel and Save Button on the right hand top
+  - Change add to “Add New Group” and delete to “Delete Group”
+  - Added Add Signer button next to where we can type and search name and email for individual signer to add in group
+
+Allow documents to be renamed from the manage package page (E11-T1219)
+- Prereqs:
+  - RAP_eDS 8.24.0.0
+- **Testing Steps:**
+  - Login
+  - Navigate to the manage doc screen
+  - Expand any package that is ready for e-sign
+  - Click on the name of any DFC
+  - It will open an update DFC name modal
+  - The user can update the DFC name by clicking the save button
+
+Prevent clicking off-screen when editing elements with older setup editing modals (E11-T1286)
+- Log in to the eDs Admin panel and navigate to the "Manage Template" page using the "Set Up Template" tab.
+- Click the "Edit Template" button.
+- Add a textbox, checkbox, radio button, and user checkbox input element, then double-click each element.
+- This will open the edit element modal. Verify that that the user cannot interact with anything behind the modal.
+
+Fix allowing creating templates with no non-hidden roles (E22-T212)
+- Login to eDs Admin site.
+- Make sure there is a Signer Group Role available under the ControlID you are signed into.
+- If you aren't familiar with Signer Group Roles, they are created by having a Role named the same as a Signer Group. You can edit/create these in `Settings -> Signers -> Signer Groups` and `Settings -> Admin -> Roles`.
+- Note that Signer Group Roles are intended to always have the "Role Hidden" status.
+- Navigate to the manage template page using 'Set Up Template' tab.
+- Click on 'Add' button and upload signing template.
+- Proceed to the 'Select Signer Roles' screen.
+- Select and add a Signer Group Role.
+- Add another non-Signer Group Role and check "Role Hidden".
+- Verify you are prevented from proceeding if the list of roles doesn't included at least one non-"Role Hidden" entry.
+
+Resolve package events 'number of days'/'Enabled' input element inconsistency (E22-T208)
+- Login into eDs Admin
+- Navigate to Settings-> Admin-> Events
+- When the enable event checkbox is checked (enabled), the Number of Days input field should be active and editable.
+- When the enable event checkbox is unchecked (disabled), the Number of Days input field should be inactive and not editable.
+
+- - - - - - -
+Version 8.24.0.10
+Compile Date 25 October 2024
+
+Fix issues with inputting invalid characters in sigbox editor coordinate fields (E11-T1294)
+- Login to eDs Admin and navigate to the send doc page using 'Send Document' tab.
+- Upload Signing document and proceed to the set up page.
+- Double-click on the signing elements to edit them. Attempt to enter invalid inputs for top, left, height, and width (e.g., '32asd3' or '87@21'). Verify that you aren't able to enter anything other than number characters in. Then click the "Apply" button.
+- Verify that attempting to save values that pass allowed boundaries or dimensions will result in an "Invalid" error pop up.
+
+Fix Completed Package Email Link not redirecting to the package when logged in in another tab (HF2-T938)
+- Test salesforce handoff
+  - Access index.php?SALESFORCE=true or eDOCSignature.php?SALESFORCE=true.
+  - If you are not already logged in in another tab, you should prompted to complete the login process first.
+  - You should be redirected to salesforce.php, presented with a code.
+- Test nvpkgid query param
+  - Obtain the proper link for viewing a package through 2 ways:
+    - Complete a package you're an owner of, click on the link for viewing the package in your email.
+    - Create it yourself:
+      - Find the ID of a package accessible to the CID your user is associated with or the last CID you visited if you are a global user
+      - Access index.php?NVPKGID=191FC0CFCBC9449CBEEAE1062F760325 or eDOCSignature.php?
+      - NVPKGID=191FC0CFCBC9449CBEEAE1062F760325, replacing the ID with the one you found
+  - If you are not already logged in in another tab, you should prompted to complete the login process first.
+  - You should be redirected to managepackage.php with your package listed in-view.
+
+Fix clicking manage template tags modal save button not saving changes - (E11-T1284)
+- eDS Login > Go to Set Up Templates > Click on 'Edit Template' icon of a template > Click to Edit Tags icon > Add or Remove a Tag > Press 'Save' button to save
+- Click 'Back' button and again click on 'Edit Template' icon of the edited template to see the changes are updated.
+
+Manage Marketing Image Hyperlink (E11-T1245)
+- Open the eDS Admin login page and click on the marketing image.
+- The user will be navigated to a page set to ($cfg['Default']['MarketingImageHyperlink']) setting in config.php, If nothing value is set then it will do nothing after clicking on the image
+
+IDPal Frontend (IDP-T23)
+1. Make sure you have:
+  - go_microservices 8.24.0.4 or higher
+  - A working email address to receive the IDPal verification request.
+1. Log in to eDocAdmin.
+2. Navigate to the "Send Document" section.
+   - Add or upload the document that requires signing.
+   - Enter the signer details and select the "ID Scan" option for ID verification.
+3. Send the Document for Verification.
+1. - After sending, you will receive an email from IDPal for verification. Click the provided link in the email to complete the request process.
+4. Access the "Manage Packages" Section.
+   - On the landing page, click on the IDPal verification button, which displays the number of pending verification cases.
+5. Review the Verification Status.
+   - You will be redirected to the IDPal Verification page, where the status of each verification will be displayed (Pass/Fail/Pending).
+6. Review Pending Cases.
+   - For cases marked as "Pending," click the "Review" button to proceed. This button will only be visible for pending cases.
+7. Accept or Reject the Verification.
+   - You will be redirected to the submission page, where you can accept or reject the verification by clicking the respective button.
+
+- - - - - - -
+Version 8.23.0.28
+Compile Date 21 October 2024
+
+Fix Completed Package Email Link not redirecting to the package when logged in in another tab (HF2-T938)
+- Fixes 8.23.0.27 test point `Fix SALESFORCE and NVPKGID query params not working (E22-T207)`
+- Test salesforce handoff
+  - Access index.php?SALESFORCE=true or eDOCSignature.php?SALESFORCE=true.
+  - If you are not already logged in in another tab, you should prompted to complete the login process first.
+  - You should be redirected to salesforce.php, presented with a code.
+- Test nvpkgid query param
+  - Obtain the proper link for viewing a package through 2 ways:
+    - Complete a package you're an owner of, click on the link for viewing the package in your email.
+    - Create it yourself:
+      - Find the ID of a package accessible to the CID your user is associated with or the last CID you visited if you are a global user
+      - Access index.php?NVPKGID=191FC0CFCBC9449CBEEAE1062F760325 or eDOCSignature.php?
+      - NVPKGID=191FC0CFCBC9449CBEEAE1062F760325, replacing the ID with the one you found
+  - If you are not already logged in in another tab, you should prompted to complete the login process first.
+  - You should be redirected to managepackage.php with your package listed in-view.
+
+- - - - - - -
+Version 8.24.0.9
+Compile Date 09 October 2024
+
+Add index definition support for Bulk Send submissions (E11-T780)
+- Prereqs:
+  - Triggers 8.24.0.0
+  - Signing pages 8.24.0.5
+- Testing Steps:
+  - Make sure you have an index definition and a template set up with non-hidden roles that make use of the index definitions in their fieldnames
+  - Login
+  - Set Up Bulk Send -> New Bulk Send
+  - Select the aforementioned template, fill in a Job Name, click Next
+  - Now on the "Add Bulk Send Data" screen, you should have a drop-down for non-hidden roles and the index definition should be there as 'Index Fields' as columns.
+  - Select a role that has signature elements in the template that make use of the index definitions
+  - Fill in signer details and index fields (manually or CSV import)
+  - Click Send
+  - Enter the signing process for one of the documents sent out by the bulk send using the signing link generated in the email notification they should have received
+  - When you get to the signing process, the fields using the index definitions should be filled to what was specified in the "Add Bulk Send Data" process
+
+- - - - - - -
+Version 8.24.0.8
+Compile Date 03 October 2024
+
+Fix updating doc name in saved package changing the package name (E11-T1300)
+- Login into eds admin > Manage Packages
+- Expand a 'Ready to Sign' package > Edit a document in the package
+- Click the signer icon > Update the name of that document to something identifiable
+- Save and return to the manage packages screen
+- The Doc name should be updated and the package name should not be updated
+
+- - - - - - -
+Version 8.24.0.7
+Compile Date 01 October 2024
+
+Fix not loading package type Redirect URL in the send doc process (E11-T1278)
+- Login to eDs Admin site and navigate to the workflows page using 'Set Up Package Type' tab.
+- Create a package type.
+- Enter a redirect URL.
+- Add package using 'Add' button.
+- Click on 'Save' button.
+-  Click 'Send Now'  button.
+- Go through the process until you reach the review page.
+-  Notice that the redirect URL field is not a empty (bottom left corner).
+- Click on 'Sign now' button.
+- Sign the package.
+- Note that you are redirected to the URL saved on the review page.
+
+Prevent the browser from autofilling select fields in eDS Admin (E11-T1297)
+- Login into eds admin
+- Autocomplete should be off on the following pages
+  1. Manage Packages > Search Package/Document Name
+  2. Set Up Templates > Search Template Name
+  3. Set Up Package Types > Package Type Name
+
+Fix setup screen role dropdown not updating when replacing a role during the setuptemplate process (E11-T1293)
+- Login to eDs Admin site and navigate to the manage template page using 'Set Up Template' tab.
+- Add Signing Template.
+- Add a role.
+- Go to the Set Up screen.
+- Go back to the signer roles screen.
+- Use the dropdown to replace the signer role.
+- Go to the Set Up screen.
+- Notice that the role dropdown says the name of the new selected role.
+
+Fix pasting quotes from word into personal message logs user out (E11-T1298)
+- Login into eDS admin > go to Manage Packages
+- Edit a Package > Click on the personal message icon for a signer role
+- Paste in text from Word that includes quotations
+- It should save the personal message without any error
+
+Fix being able to set multiple Signature elements for autofilling one Date Signed element (E11-T1296)
+- Test the functionality of automatically clearing one signature element's autofill field when setting another
+  - Login into eds Admin > go to manage packages > edit any doc of a package
+  - Add two or more signature elements and one date signed element
+  - Double-click a signature element and set it to autofill the date signed box > Apply
+  - Set the other signature element to autofill the date signed box > Apply
+  - The first signature element's autofill should be set to None
+- Test the functionality of properly updating an autofill field after the fieldname of the datesigned element is renamed
+  - Login into eds Admin > go to manage packages > edit any doc of a package
+  - Add a signature element and a date signed element
+  - Double-click a signature element and set it to autofill the date signed box > Apply
+  - Double-click the date signed box and update the field name
+  - The first signature element's autofill should be renamed automatically
+- Test the functionality of preserving an autofill field selection after saving a signature element
+  - Login into eds Admin > go to manage packages > edit any doc of a package
+  - Add a signature element and a date signed element
+  - Double-click a signature element and set it to autofill the date signed box > Apply
+  - Double-click the signature element and update any field except autofill > Apply
+  - The first signature element's autofill should be persisted
+
+- - - - - - -
+Version 8.24.0.6
+Compile Date 25 September 2024
+
+Fix replacing template forms with invalid file type resulting in a blank error message (E11-T1285)
+- Login to eDs Admin site and navigate to manage template page using 'Set Up Template' page.
+- Edit a Template using edit icon.
+- Replace Form using replace icon.
+- Choose an unsupported file type such as .bmp.
+- Notice that the page presents a  'Invalid File Type' error message.
+
+Fix allowing invalid characters in manage template "Notification Name/Email" fields that could result in page errors (E11-T1289)
+- Login to eDs Admin site and navigate to manage template page using 'Set Up Template' tab.
+- Edit a signing template.
+- Click the Edit Roles icon.
+- Set the Notification Name and Notification email to something invalid.
+  - The notification name is only allowed to include alphanumeric characters, hyphens, and single quotes. Other special characters such as "`\`" or "`|`" are not allowed. It supports a maximum of 128 characters.
+- Click on 'Save' button.
+- Notice that the warning message is displayed.
+
+Fix allowing leading _ characters in Date Picker field names in setup screens (E11-T1266)
+- Login to eDs Admin Site and navigate to send doc page using "Send Document" tab.
+- Add a Signing Document.
+- Proceed to the Set Up Document page.
+-  Add Date Picker element.
+- Double click on the element.
+- Add an _ in the front of the Field Name. and Click 'Apply' button.
+- Notice that the Date Picker element  not allow a leading _ in the Field Name.
+
+- - - - - - -
+Version 8.24.0.5
+Compile Date 23 September 2024
+
+Fix sigelementgrid editor allowing spaces when editing elements (E11-T1287)
+- Login to eDs Admin site and navigate to manage template page using 'Set Up Template' tab.
+- Edit a Template using edit icon.
+- Edit Signature Elements ( ... ).
+- Update an element 'Name' field to include a space.
+- Click on 'Close' button.
+- Notice that the User receives an error 'Invalid characters found in field name: [SPACE].
+
+Fix fatal errors on saving template descriptions with special characters (E11-T1282)
+- Make sure the config setting `EnableTemplateDescription` is set in your `config.php` file to true as exemplified in `config_sample.php`.
+- Login
+- Test template creation w/description
+  - Manage Templates > Add > After adding a document, add a Description including at least one special character (`'"@#$`) > Save and try to return to Manage Templates.
+  - You should be able to submit the template and return to view the description in ManageTemplates without getting logged out with an error.
+- Test template editing w/description
+  - Manage Templates > Edit a Template > Add a Description including at least one special character (`'"@#$`) > Save and try to return to Manage Templates.
+  - You should be able to save the template and return to view the description in ManageTemplates without getting logged out with an error.
+
+- - - - - - -
+Version 8.24.0.4
+Compile Date 20 September 2024
+
+Fix the radio box selected by default mark sizes not proportional when editing multiple (E11-T1295)
+- Login into eds admin > Edit a document
+- Add a couple of different-sized radio boxes in the same group
+- Double click and choose selected by default
+- Try clicking around and adjusting the sizes of the radio boxes
+- The mark should be centered and proportional to the radio box it's in and should not be affected by other radio boxes in the same group.
+
+Fix 8.24.0.2 failed test points
+
+- - - - - - -
+Version 8.24.0.3
+Compile Date 19 September 2024
+
+Fix Package Types search by owner dropdown not staying on your previous searched owner selection (E11-T1274)
+- Login to eDs Admin site and navigate to workflows page using 'Set Up Package Types' tab.
+- Select an owner in the 'Package Owner' dropdown.
+- Click on 'Search' button.
+- Notice that the Package Owner dropdown name is that you have just searched.
+
+Fix sharing not getting saved when switching pages (E11-T1275)
+- Login to eDs Admin site and navigate to send doc page using 'Send Document' tab.
+- Upload a signing document.
+- Go to the sharing page.
+- Select an additional user/group to share with.
+- Go back to the set-up page using 'Back' button.
+- Click 'Next' to the sharing page.
+- Uncheck the user/group.
+- Click 'Next' to the review page.
+- Notice that the unchecked user/group is not selected.
+
+Fix the last package of a page getting carried over as the first package of the next page in Manage Packages (E11-T1277)
+- Login to eDs Admin site and navigate to manage docs page using 'Manage Packages' tab.
+- Make sure you have at least two pages worth of package results (there is a next button).
+- Rename the last package on the page to something identifiable.
+- Click on 'Next' button.
+- Notice that the first package of this page is now not same package as the one you just renamed.
+
+- - - - - - -
+Version 8.23.0.27
+Compile Date 03 October 2024
+
+Fix `SALESFORCE` and `NVPKGID` query params not working (E22-T207)
+- Test salesforce handoff
+  - Access index.php?SALESFORCE=true or eDOCSignature.php?SALESFORCE=true
+  - Complete the login process
+  - You should be redirected to salesforce.php, presented with a code.
+- Test nvpkgid query param
+  - Find the ID of a package accessible to the CID your user is associated with or the last CID you visited if you are a global user
+  - Access index.php?NVPKGID=191FC0CFCBC9449CBEEAE1062F760325 or eDOCSignature.php?NVPKGID=191FC0CFCBC9449CBEEAE1062F760325, replacing the ID with the one you found
+  - Complete the login process
+  - You should be redirected to managepackage.php with your package listed in-view.
+
+- - - - - - -
+Version 8.24.0.2
+Compile Date 17 September 2024
+
+Notify the user when his password is about to expire (E11-T1256)
+- Log into eDS as an admin and update the expiration of a user to expire the following day.
+- Log out and log in to the edsAdmin.
+- The user should be prompted that their password is about to expire.
+
+Fix drawing user checkboxes as checked when loading a saved template/package document (E11-T1258)
+- Login to eDs Admin site and navigate to manage template page using 'Set Up Template' tab.
+- Click on 'Add' button and Add a signing template.
+- On the setup page, add a user field checkbox.
+- Double click to uncheck the checkbox
+- Save template.
+- Edit the created template.
+- Notice that the checkbox is unchecked now.
+- Double click to verify that the box is set to unchecked.
+
+Fix switch signer from element grid removes black outline for required elements (E11-T1272)
+- Login into eds admin
+- Set Up Templates > Edit a template >
+- Add one or two roles using the edit roles icon if the template only has one role
+- Make sure there are some required elements
+- Click on 'Edit Signature Elements' (three dots)
+- Update the signer of a required element to a different role
+- Close the grid view
+- The black outline should remain on the element after switching the signer
+
+Fix select owners broken after using navigation with specific owner (E11-T1273)
+- Login into eds admin
+- Set Up Templates
+- Choose a user in the 'Select Owner' dropdown
+- Make sure this owner has enough templates for there to be a 'Next' button Click 'Next' and 'Back'
+- Selecting different owners and using navigation should show the correct result.
+
+Fix logging you out on tabbing back into a window displaying the login again modal prompt when AllowLoginAgain setting is enabled
+- Testing Steps:
+  - Enable `AllowLoginAgain` config setting
+  - Send Doc -> Set Up screen
+  - Wait until the session expires, showing the `Your session has expired, please login again` login prompt
+  - Switch to another browser tab, switch back
+  - You should not be logged out
+
+If a role and a signer group have the same name only one copy appears in the add role/group dropdown (adds progress on E11-T1154)
+
+Fix showing refresh prompt on tabbing in
+
+Allow editing Role Names in Manage Template (E22-T73)
+- Change signer role names in Edit Template to text input to allow editing role names.
+- Testing Steps:
+  - Make sure a template is available for editing
+  - Landing page -> Set Up Templates -> Edit a template
+  - Click the "Edit Roles" button
+  - Change the name of an existing role
+  - click the modal's "Save" button
+  - Clicking "Back" at this point should discard your role name changes, but clicking "Save" first will save them. The sig elements' roles and "Edit Roles" modal will reflect this upon re-editing the template.
+
+Fix bulk Send headers do not toggle results properly (E11-T1268)
+- Login into eDS admin
+- Goto Set Up Bulk Send
+- Clicking on the bulk send job headers will toggle the list order between ascending and descending.
+
+- - - - - - -
+Version 8.23.0.26
+Compile Date 16 September 2024
+
+Fix not preserving Template Type selection
+- Login
+- Set Up Templates > Search > Modify `Template Type:` in the search parameters > Search > Click the green search button again > `Template Type:` should be preserved to what you set it to
+
+Fix not preserving your saved selection of the Target Table dropdown when clicking "Save" and then re-opening the index dialog
+- Login
+- Set Up Templates
+- Edit a template
+- Click the Edit Index Data button
+- Change it to something else
+- click "Save"
+- Click the Edit Index Data button again
+- Your Target Table should be set to what you just saved it to
+
+- - - - - - -
+Version 8.23.0.25
+Compile Date 13 September 2024
+
+Fix Allow Login Again prompt not requiring proper credentials (HF2-T936)
+- Revise AllowLoginAgain prompt logic to fix several issues:
+  - Fix dismissing the prompt when nothing is entered.
+  - Changed "Close" button to a red "Exit" button for clarity
+  - Improves security by ending the backend session and making login logic occur in the middleware
+- This isn't perfect and needs more development in a few areas, such as adding support for MFA and password resetting (though both are reported to the user as "not supported").
+- **Testing Steps:**
+  - Make sure the `AllowLoginAgain` setting is enabled in your `config.php` file as exemplified in `config_sample.php`
+  - Login
+  - Wait for the refresh-session prompt to show up (The default time before this shows up is 13 minutes)
+    - Alternatively, if you want to speed up testing, you can trigger process by submitting `saveDocsAndLogOff();` (for package creation) or `saveTheSetUpTemplate();` (for template creation) in your web browser's JavaScript console when you reach the review screen.
+  - If you have `AllowLoginAgain` enabled, a prompt with "Your session has expired, please login again" should show up.
+  - Attempt to log in.
+  - Submitting nothing should ask you to add credentials
+  - If you submit correct credentials and your account is using MFA or it requires a password reset, a notice should come up explaining that this situation isn't supported and requesting you to "Please exit to login page and log in again".
+
+- - - - - - -
+Version 8.24.0.1
+Compile Date 12 September 2024
+
+Update Effective Permissions Live (E22-T89)
+Add logic to update effective permissions live when the user adds/remove groups/permissions
+- Navigate to settings -> Users
+- Modify a user by adding/removing groups/permissions
+- The effective permissions list will update as these changes are performed
+
+Add logic to prevent showing the refresh-session prompt when the backend session is expired (E11-T1190)
+- Add logic to log the user out when the backend session is expired for:
+  - Tabbing back into the webpage
+  - The refresh-session prompt attempting to be displayed
+- Testing steps:
+  - To speed up the testing process, you can perform the following actions:
+    - In eDSAdmin's code, edit `common/session.php:19` and replace the values for the following variables:
+      ```js
+      const SESSION_LIFE = 3 * MINUTE;
+      const EXPIRE_REFRESH_BACKEND = 2 * MINUTE;
+      const EXPIRE_REFRESH = 1 * MINUTE;
+      ```
+    - In your SQL database management software (such as MySQL Workbench), run the following script to forcefully expire the session, setting `@sid` to your current session id (which you can obtain by submitting `SID` in your web browser's JavaScript console):
+      ```sql
+      SET @sid = '7A8FC5B52B234E71BBB920AF34745004';
+      SELECT * FROM scenter.active_session WHERE Session_ID = @sid;
+      UPDATE scenter.active_session SET Last_Request = Last_Request - INTERVAL 15 MINUTE WHERE Session_ID = @sid;
+      ```
+  - Login
+  - Test the refresh-session prompt display logic
+    - Wait for the refresh-session prompt to show up (The default time before this shows up is 13 minutes unless you changed the code mentioned previously, which makes it 2 minutes)
+    - If the backend session is expired by the time the prompt should show up, you should be logged out
+  - Test the logic added for tabbing back into the webpage
+    - Switch to another window/tab in the browser
+    - By the time the session expires, going back to visit the browser window should log you out
+
+Fix including header columns in bulk send signer csv imports (E11-T1255)
+- Login to eDs Admin site and navigate to bulksend page using 'Set Up Bulk Send' tab.
+- Click on 'New Bulk Send' button.
+- Add a template and click on 'Next' button.
+- Upload a CSV with a header line.
+- On a successful import, the header line of the import file should not be included with the resulting list of signers.
+
+Fix erroring and logging the user out when using a renamed pended document (E11-T1265)
+- Login to eDs Admin site and navigate pending docs page using ' Pending Docs' tab.
+- Upload document and Rename the document and remove the .pdf file extension from the end of it once uploaded.
+- Click on 'Save' button. and Click on 'Menu' button.
+- Navigate to the send doc page using 'Send Document' tab.
+- Add a Signing Document Using Pended Doc.
+- Select the document you renamed and verify now its working fine.
+
+Fix autofilling Group search field and redirect URL fields on the Upload and Apply Template process while in Google Chrome browsers (E11-T1263)
+- Ensure auto fill is enabled on Chrome.
+- Login to eDs Admin site and navigate send doc page using 'Send Document' tab.
+- Upload & Apply Template.
+- Select the document and template.
+- Continue to the sharing page.
+- Note that autofill for the 'Groups search' field has now been stopped.
+- Click on Next button.
+- On the review page, Note that autofill for the 'redirect URL' field has now been stopped.
+
+Add logic to set user MFA option to NONE and log them in when it's the only available option (E11-T1260)
+- Set the following in RAP under `[Login-CID]`:
+  ```
+  MultiFactor=N
+  ```
+- Login to eDS as a newly created user.
+- Verify if MFA option is N then system skip asking the user for set MFA.
+
+Fix submitting nothing in the sms field for a user with an associated eSigner resulting in saving a `<BLANK>` entry
+- Login
+- Edit a user with an associated eSigner
+- Clear the SMS field, then save
+- After saving is complete, the empty SMS field should not be replaced with `<BLANK>`.
+
+- - - - - - -
+Version 8.23.0.24
+Compile Date 11 September 2024
+
+Fix bulksend checkbox not filtering package search (E11-T1267)
+- Make sure you have submitted packages via bulk send at some point
+- Login > Manage Packages > Search
+- Check or don't check the "include bulk sends" checkbox, then click Search
+- The resulting package list view should be filtered for packages based on the state of the include bulk sends checkbox.
+- If the results difference isn't clear, you can verify whether the parameters were submitted correctly.
+  - After submitting results, open console (press F12) and observe the Network tab > Search. The Payload should have the `includebulksends` item set to true or false based on the state of the checkbox.
+
+- - - - - - -
+Version 8.24.0.0
+Compile Date 09 September 2024
+
+Fix sharing page cuts off longer names (E11-T1212)
+- Login into eds Admin
+- Click to send doc
+- Go to the sharing screen
+- Hovering the mouse over group and user names should reveal the full name
+
+Fix resetting document zoom on closing the roles modal in the setup screen on the manage templates page (E11-T1213)
+- Manage Templates
+- Edit a template
+- Use the zoom options to zoom in on the document.
+- Click the Edit Roles button.
+- Click Save to close the modal.
+- The document image should not be zoomed out
+
+Add Middleware RIP Request Error handling improvements (Does not need to be tested)
+
+Fix updating user SMS field not updating in the inbox for their eSigner (E11-T1165)
+- Log in to the eDOCAdmin site and navigate to the settings page via the Settings tab.
+- Click on the Users tab in the left panel. Select a user and update the phone number field. Then, log in to the Inbox and verify whether the SMS field has been updated.
+
+Event package lifecycle for all packages (CO1-T18)
+- Make sure the `ShowEvents` setting is set to true for your CID in config.php.
+- Login to eDocSignatureAdmin
+- Click on **Settings** section > go to admin section under that click on **Events** tab
+- The input elements in the "Number of Days" column should now be number inputs with a minimum of 1 and a maximum of 99. Setting these here and clicking the "Save" button should preserve the settings (reloading the page and visiting the Events tab again should have the same value you saved)
+
+Fix making unique placeholder fieldnames for the process of adding a document to a package (E11-T1242)
+- Adding another document to the package will now take into account the fieldnames of other documents in the package, picking up where the placeholder field names left off. This functionality affects the managedoc and senddoc processes.
+- **Testing Steps:**
+  - Enter the process of creating a package with more than one signing document.
+  - Add more than one signer.
+  - Add text signing elements for both signers in each document.
+  - Save the document.
+  - In the Manage Package screen, find the package and either click "Add Document" or edit one of the documents you created earlier.
+  - Once you reach the Set Up screen, add a new text sigbox element.
+  - The placeholder name should now take into account the fieldnames of other documents in the package, picking up where the placeholder field names left off.
+
+Fix not scaling font in UserFields to match large dimensions (E11-T1250)
+- Login to eDs Admin site and navigate to senddoc page using Send Document tab.
+- Upload Signing document and Proceed to the document setup page.
+- Add a user field.
+- Fill the sample text.
+- Expand the element so it is excessively large.
+- Verify user fields render the text properly.
+
+Fix sig element editing modal title inconsistencies (E11-T1239)
+- Login to eDs Admin site and navigate Manage Packages page.
+- Expand package and click on edit document icon.
+- Make sure there is a signing element, date element, and text element field.
+- Double click on the signature element and observe the title "Edit Signature".
+- Close the pop up and Double click on a text element and Observe there is title "Edit Text Box" also verify all elements.
+
+Fix manage templates search header disappearing when no results are found (E11-T1246)
+- Login into eDS  admin
+- Goto Set Up Templates
+- Enter a set of characters into the Search Template Name field that will return no results.
+- When no templates are found the search bar should remain on the page
+
+Fix zooming on Set Up screen and then saving preserving incorrect font size for Memo sig elements
+- Go to setup or manage doc
+- Add a memo box
+- Zoom the document to max limit
+- Save the document
+- The font size of the memo field should be correct
+
+Fix package name blank when template is sent from signers page (E11-T1244)
+- Login > Send Document > Send Using a Template
+- Select any template > Rename the package (or don't) > Click "Next"
+- Click "Send Now" on the signers setup screen
+- Go to Manage Packages
+- The desired package name should be saved when a user sends a document from the "Assign Signers to Roles" page.
+
+Fix autofilling redirect url field on the review screen in the template creation process while in Google Chrome browsers (E11-T1257)
+- Login to eDs Admin site and navigate to manage template page using 'Set Up Template' tab.
+- Click on 'Add' button and Select 'Signing Template'.
+- Upload document and  proceed to the Review and Create Template page.
+- Note that autofill for the redirect URL field has now been stopped.
+
+Fix autofilling Signer Name field on the Bulk Send process while in Google Chrome browsers (E11-T1254)
+- Login to eDs Admin site and navigate set up bulk send page using 'Set Up Bulk Send' tab.
+- Click on 'New Bulk Send' button.
+- Select a template.
+- Click on 'Next' button.
+- Notice that the autofill for the blank signer name field has now been stopped.
+
+Fix not applying the selected template when uploading a pending doc in the package creation process (E11-T1243)
+- Login > Go to Pending Docs > Upload multiple documents (at least 2)
+- Make sure at least one document does not have a template automatically applied
+- Return to menu > Go to Send Document > Upload a Signing Document using the pending docs
+- Select all pending documents and select "Apply matching template(s)"
+- Click the "Apply Template to Document" icon
+- The "Apply Template to Document" button should apply the template without any error
+
+Fix user fields improperly scaling based on zoom (E11-T1235)
+- Go to eDS > Set Up Templates > Edit a Template.
+- Click the Zoom In button repeatedly until maximum zoom is reached.
+- From the Role dropdown, select the User role.
+- Add a few user text box fields to the document using the Add Text Box element.
+- Click the Zoom Out button repeatedly until the page is fully zoomed out.
+- Save your changes and click the Back button.
+- Reopen the template by selecting Edit Template.
+- The user text fields should remain in the same location where they were originally placed.
+
+- - - - - - -
+Version 8.23.0.23
+Compile Date 06 September 2024
+
+Apply QC fixes for 8.23.0.22
+Fix showing an 'eSigner Email must be unique` error if you are editing an eSigner and didn't change the email
+- Make sure the `ShoweSigners` config setting in `config.php` is set as exemplified in `sample_config.php`
+- Login
+- Make sure you have at least two eSigners available for editing in the control id you're signed into
+- Go to Settings -> Signers -> eSigners
+- Edit an eSigner
+- Don't change the email, then click "Save"
+- You should not get a red notice saying `eSigner Email must be unique`
+
+- - - - - - -
+Version 8.23.0.22
+Compile Date 06 September 2024
+
+Apply QC fixes for 8.23.0.21
+Fix test point `Fix field placement issue with the large package name while drawing`
+- Go to the setup screen for package/template creation/editing with a large package name
+- The header should have a truncated name that doesn't extend the height of the header and isn't word-wrapped; For instance, `Editing Document "Lorem Ipsum Unam..."`.
+- Place a new sigbox
+- Element placing should be equal to exact cursor position.
+
+Fix requiring idCheckOptions config setting
+- Login
+- Go to "Send Document" and reach the "Select Signers for Send" screen
+- The `IDCheckOptions` and `IDCheckDisplay` `config.php` options should respect the following rules. (If needed, refer to `config_sample.php` for setup examples):
+  ```
+  If the CU has "only" this setting:
+  $cfg['CUA204']['IDCheckOptions']=array("None","IDology");
+  it shoudl display boht None and IDology.
+  if they ony have this setting:
+  $cfg['CUA204']['IDCheckDisplay']=array('None'=>'None', 'IDology'=>'Questions Only', 'eDS_ID'=>'ID Scan', 'eDS_BOTH'=>'Both');
+  It should display none, Questions only, Both and ID
+
+  If they have both these settings:
+  $cfg['CUA204']['IDCheckOptions']=array("None","IDology");
+  $cfg['CUA204']['IDCheckDisplay']=array('None'=>'None', 'IDology'=>'Questions Only', 'eDS_ID'=>'ID Scan', 'eDS_BOTH'=>'Both');
+  It should display None, Qustions ONly, Both and ID
+
+  If they have neither of these two settings ID Check should be disabled.
+  ```
+
+- - - - - - -
+Version 8.23.0.21
+Compile Date 05 September 2024
+
+Fix sometimes not recognizing a signer as an eSigner if the total amount of eSigners for the current CID was more than 10 signers
+- Make sure the `ShoweSigners` config.php setting is true.
+- Make sure you are logged into (or if a global user, switched into) a control id with more than 10 eSigners linked to the current CID
+- Find an eSigner to search for later that doesn't show up in the eSigners list by default.
+  - Use MySQL Database to find a signer that's part of the current controlid but isn't a part of the default list of 10 eSigners that show up on the Settings -> Signers -> eSigners screen.
+- Test eSigner recognition in the Send Doc process.
+  - Go to the Send Doc process -> Select Signers for Send
+  - Type in >=3 characters matching the full name of the eSigner in the Name field and press the `Enter` key. You should either have the rest of the eSigner details autofill and the icon change from a person to an eSigner icon.
+
+Fix sometimes not recognizing signers as eSigners after selecting an eSigner during the SendDoc process when the database contains more than 10 eSigners
+- Make sure the `ShoweSigners` config.php setting is true.
+- Make sure you are logged into (or if a global user, switched into) a control id with more than 10 eSigners linked to the current CID
+- Find an eSigner to search for later that doesn't show up in the eSigners list by default.
+  - Use MySQL Database to find a signer that's part of the current controlid but isn't a part of the default list of 10 eSigners that show up on the Settings -> Signers -> eSigners screen.
+- Test eSigner recognition in the Send Doc process.
+  - Go to the Send Doc process -> Select Signers for Send
+  - Type in >=3 characters matching the full name of the eSigner in the Name field and press the `Enter` key. You should either have the rest of the eSigner details autofill and the icon change from a person to an eSigner icon.
+
+Fix sometimes not properly checking for unique email/login name during the eSigner creation process for when the database contains more than 10 eSigners
+- Make sure the `ShoweSigners` config.php setting is true.
+- Make sure you are logged into (or if a global user, switched into) a control id with more than 10 eSigners linked to the current CID
+- Find an eSigner to search for later that doesn't show up in the eSigners list by default.
+  - Use MySQL Database to find a signer that's part of the current controlid but isn't a part of the default list of 10 eSigners that show up on the Settings -> Signers -> eSigners screen.
+- Test eSigner recognition in the eSigner creation process.
+  - Go to the Settings -> Signers -> eSigners and click "Add"
+  - Enter in "Login Name" the same name as the eSigner you found previously. An error should show up claiming that `eSigner Name must be unique`.
+  - Enter a unique login name, then enter the same email as the eSigner you found previously. An error should show up claiming that `eSigner Email must be unique`.
+
+Fix user signer in all field modal on the edit doc/temp page
+- Go to manage doc or manage template
+- Edit any doc or template
+- Click on the 3 dots to open all elements modal
+- User should not be able to see User signer in signer's drop down
+
+Fix the sharing text alignment issue in the edit doc and template
+- Go to manage doc or manage template
+- Edit any doc or template
+- Click on sharing icon to open sharing modal
+- Text alignment should be consistent
+
+Fix field placement issue with the large package name while drawing
+- Go to the setup doc screen with large package name
+- Draw any element
+- Element placing should be equal to exact cursor position
+
+Require unique email when editing an eSigner
+- Make sure the `ShoweSigners` config setting in `config.php` is set as exemplified in `sample_config.php`
+- Login
+- Make sure you have at least two eSigners available for editing in the control id you're signed into
+- Go to Settings -> Signers -> eSigners
+- Edit an eSigner
+- Change the email to be the same as another eSigners, then click "Save"
+- You should get an error saying `eSigner Email must be unique`
+
+Fix bug that causes templates to auto-search when performing any action in Manage Template
+- Navigate to Manage Templates
+- Click any button
+- Actions should occur as expected
+
+Remove functionality for showing a list of all signers in eSigner/Signer Settings screens
+- Make sure the `ShoweSigners` config setting in `config.php` is set as exemplified in `sample_config.php`
+- Login
+- Make sure you have one or more eSigners available in the control id you're signed into
+- Go to Settings -> Signers
+- For both Signers and eSigners screens:
+  - Upon clicking into it for the first time, no signers should be shown.
+  - When clicking "Search" with nothing or less than 3 characters entered, you should get a dismissable `Search must contain at least 3 characters` error (for eSigners this is a 2 character limit)
+  - Submitting a search with more than 3 characters should reveal results as expected.
+
+Fix userfield input element text rendering the size based off of the last userfield element (HF2-T931)
+- Login to eDSAdmin
+- Visit the Setup page of any document/template creation/edit process
+- Add/click on several user fields of different sizes
+- Click inside the smallest user field and enter sample text
+- Click outside of the element (or into another)
+- Expected Results:
+  The text should render to fit the size the box it is in
+
+- - - - - - -
+Version 8.23.0.20
+Compile Date 30 August 2024
+
+Fix bug that prevents the Next/Back buttons from working
+- Navigate to Manage Packages
+- Click the next/back buttons
+- Navigation should work correctly
+
+Fix bug that prevents the package type search from properly searching on package owner
+- From the landing page, click 'Set Up Package Types'
+- Change the package owner
+- Perform the search
+- If the package owner has a package, then it will appear
+- If the package owner does not have a package, then it will not appear
+
+Fix failed QC test point Fix bug that causes Text Fields to be forced as required
+
+Fix not validating signer name fields in managedoc screens for invalid characters such as tab
+- Achieved by cherry-picking validation fixes made in Refactor validation scenarios to always use getOptionsForType #646 from v8.24
+
+Fix 'invalid parameters' error on AltSite handoff
+
+Added code for fix Document was automatically replaced without pressing the Confirm button on the setup template page
+- Log in to eDs Admin and navigate to the manage template page using Set Up Template tab.
+- Click the edit icon in the template grid.
+- Click the "Replace Form" icon.
+- Select a multi-page document (containing more than 3 pages).
+- Upload the selected document.
+- Click on Save Templates.
+- Click on replace from now upload the single-page PDF.
+- If the replacing form has fewer pages than the uploaded form, a confirmation modal will appear. Confirming this action will replace and save the form.
+
+Content overlapping in signers and esigner table
+- Login to the eDocSignature.
+- Navigate to the Settings section.
+- Click on Signers tab.
+- Observe the Signers table content overlapping adjacent elements.
+- Click on eSigner section under Signers tab.
+- Observe the eSigners table to adjacent elements.
+
+Single Signer Selection Fix in Manage Packages
+
+Fix bug that prevents auto sharing on documents
+
+- - - - - - -
+Version 8.23.0.19
+Compile Date 29 August 2024
+
+Fix inconsistency with "Invalid File Type"  error message (E11-T1240)
+- Log in to eDs Admin and go to the Send Documents page via the Send Documents tab.
+- Upload an invalid file (e.g., a .txt file) in the signing document section and verify the error message.
+- Upload the same .txt file in the reference document section and verify the error message.
+- Ensure that the error message displayed is "Invalid File Type," which should be consistent across all areas of the system, eliminating any inconsistencies.
+
+Apply QC fixes for v8.23.0.18
+- Fix `Search By Owner` failed test case
+
+Fix bug that causes Text Fields to be forced as required
+- Setup a document to sign with a text field set to optional
+- Send the document
+- When signing the document, the text field will remain optional and not be required
+
+Fix bug that prevents template target tables from updating properly
+- Edit a template
+- Change the target table and save it
+- The target table should persist
+
+Fix issue that prevents MFA from being set correctly
+- Login with a user's email
+- When prompted to select an MFA option, select one
+- The option should be applied, persisted, and the user should be brought to the landing page (unless this is Google MFA)
+
+Fix displaying the option to view eSigner details/inbox for eSigners that aren't a part of the current CID
+- Make sure there is more than one CID in your environment available
+- Log in as a global user with an eSigner tied to the account
+- Make sure the top-right CID selector is on a CID other than the one your eSigner is associated with
+- Expected Results:
+  You don't have the Inbox button available on the landing page and Going into `Settings -> Users` and be selected on this global user should result in a greyed out icon that you can't click on to view the user's eSigner.
+
+- - - - - - -
+Version 8.23.0.18
+Compile Date 27 August 2024
+
+Apply QC fixes for v8.23.0.17
+- Fix `Send Package Type` failed QC test point
+- Fix `Fix "Back" button not presenting an alert to save changes on Manage Packages page (E11-T1228)` failed QC test point
+  - Fix manage package "Edit Document" screen "Back" button prompting for unsaved changes when there weren't any changes to be saved.
+
+Fix manage package modal ticket link issues
+  - Have a package in "Ready to Sign" status in manage packages, open the manage package modal
+  - Click on a ticket link for a signer
+  - The screen should dim, preventing a "Signing Link" modal, and in the background one of the "Actions" buttons should change from the green "Send" to red "Close Out". Any eSigners in the list should retain their appearance when you clicked the link button.
+
+Remove logic that searches new signer after adding them
+- Navigate to settings -> Signers
+- Add a signer
+- All signers will be shown after adding the new signer
+
+Add logic to prevent header columns from being added to the user's list when uploading a .csv in signer groups
+- Navigate to Settings -> Signers -> Signer Groups
+- Select a group and upload a CSV
+- The first line of the CSV will be skipped (this avoids the header being uploaded as a signer)
+
+Fix loading issues that cause lag and flashing
+- Navigate to Settings -> Signers -> Signer Groups
+- Add or open a group
+- The page should load quickly with little lag and flashing
+- The signers in a signer group should display the correct icon (signer vs eSigner)
+
+Fix bug that showed Audit Page after navigating away from the page
+- Go to Settings -> Admin -> Audit Reports
+- Navigate to another tab such as Groups
+- The Audit Reports section should no longer appear
+
+Fix bug that causes link fields to have double backslashes
+- Create a template
+- At the end of the process, the user will be presented with the link. The link will be formatted correctly
+
+- - - - - - -
+Version 8.23.0.17
+Compile Date 26 August 2024
+
+Restore logic that toggles eSigner icons when relevant (i.e manage packages)
+- Navigate to Manage packages
+- Click 'Edit Package'
+- If the signer is an eSigner, the eSigner icon should be displayed
+- If the signer is not an eSigner, the eSigner icon should not be displayed and the user icon will be displayed instead
+- Editing Users/Signers on a package document will do the same
+
+Add QC fixes for the following failed test points in v8.23.0.16:
+  `Send Package Type` (ref doc review issue)
+
+Improve admin pages logging for file uploads
+
+- - - - - - -
+Version 8.23.0.16
+Compile Date 21 August 2024
+
+Added QC fixes for v8.23.0.15
+- Fixed test point `Create eSigner from Existing User`
+
+Show/hide Audit Reports settings tab via config setting (adds to CO1-T4)
+- Make sure the `EnableAuditReports` config setting is set in config.php, as exemplified in config_sample.php.
+- Go to Settings
+- With the `EnableAuditReports` setting set to true, you should see the "Audit Reports" option in the left sidebar under Admin; When false, it should be hidden. When visible, click the option that to go visit the Audit Reports page.
+- The user will be presented with a screen that includes the users/groups/permissions buttons as well as a small dialog that contains the number of users and groups followed by an `Export` button
+- Clicking the various buttons will adjust the display of the table as follows
+  Users  - displays only the users
+  Groups - displays only the groups
+  Permissions - displays only the permissions
+  Users + Groups - displays users and the groups to which they belong
+  Users + Permissions - displays users and the permissions that were explicitly given
+  Groups + Permissions - displays groups and the permissions associated with that group
+  Users + Groups + Permissions - displays the users` effective permissions (given permissions + the permissions associated with their group)
+
+Added code for allow punctuation in requested document msg (CO1-T24)
+- Login to eDOCAdmin site and access senddoc page using Send Document tab.
+- Enter Package name and add Requested document Click n (+) icon.
+- Select Create New Request option.
+- Enter 'PhotoID' in Name field and Enter 'Can you upload a copy of your phot0ID? I can't go without it!' in message filed and click on Next button and verify its allowing punctuations.
+
+- - - - - - -
+Version 8.23.0.15
+Compile Date 15 August 2024
+
+Added QC fixes for v8.23.0.14
+
+Fix "Back" button not presenting an alert to save changes on Manage Packages page (E11-T1228)
+- Log in to the eDOCAdmin site and navigate to the Manage Documents page via the Manage Package tab.
+- Edit the document within the package by clicking the Edit icon.
+- Add a signing element and click the Back button without saving. Verify that an unsaved changes popup is displayed.
+
+- - - - - - -
+Version 8.23.0.14
+Compile Date 09 August 2024
+
+Fix bug that requires the Edit all Users permission in order to use the user/eSigner selector when sending a document
+
+- - - - - - -
+Version 8.23.0.13
+Compile Date 09 August 2024
+
+QC MFA and Password Reset fixes
+
+- - - - - - -
+Version 8.23.0.12
+Compile Date 09 August 2024
+
+Added QC fixes for v8.23.0.10/general fixes
+- QC Fixes - Fix eSigners Add button not enabling form fields
+
+- - - - - - -
+Version 8.23.0.11
+Compile Date 08 August 2024
+
+Added QC fixes for v8.23.0.10/general fixes
+
+- - - - - - -
+Version 8.23.0.10
+Compile Date 06 August 2024
+
+Added QC fixes for v8.23.0.9/general fixes
+
+Fix same-named signers getting hidden in manage package screen on documents sent out from ProDOC (HF2-T900)
+- In ProDOC, send a document out for signing to two or more signers, all with the same name and different email addresses.
+- In eDSAdmin, go to Manage Packages
+- Find and click the gear icon on the package that ProDOC sent out
+- You should see all of the signers you added listed. Previously, only one signer would be shown if there were signers that shared the same name.
+
+Add a setting to enable "Automatically Share Documents to the Group the Sender is a Member of (CO1-T5)"
+- **Testing Steps**
+  - Enable/disable/remove the config setting in your `config.php` for `EnableAutoShareToGroup` as exemplified in `config_sample.php`.
+  - Make sure you have a user assigned to at least one group.
+  - **SendDoc Tab**
+    - Log in to the eDocAdmin site and navigate to the "Send Document" tab.
+    - Add the Signing Document then click "Next" to proceed to the Select Signer page.
+    - Use the add signer icon to include signers, then click "Next" to move to the Index Data page.
+    - Click "Next" to proceed to the Set Up Document page, add elements to the document, and click "Next" again to navigate to the Sharing Data page. You should be brought to a page to select users and groups to share the document with. The groups the user is a part of should be pre-selected with the setting enabled, but will not if it is disabled or not set.
+  - **Set Up Template Tab**
+    - Log in to the eDocAdmin site and navigate to the "Set Up Template" tab.
+    - Add the Signing Document then click "Next" to proceed to the Select Signer page.
+    - Use the add signer icon to include signers, then click "Next" to move to the Index Data page.
+    - Click "Next" to proceed to the Set Up Document page, add elements to the document, and click "Next" again to navigate to the Sharing Data page. You should be brought to a page to select users and groups to share the document with. The groups the user is a part of should be pre-selected with the setting enabled, but will not if it is disabled or not set.
+
+- - - - - - -
+Version 8.23.0.9
+Compile Date 30 July 2024
+
+Change Verbiage when Editing Requested Doc Message
+- From the landing page navigate to set up templates.
+- Use the template type header to filter only Requested templates.
+- Click the gear icon to edit a requested template.
+- The title of the modal should read "Edit Requested Document Message"
+
+
+Fix bug that causes the signer roles to remove unused roles when navigating back to 'Assign Signers to Roles'
+- From the landing page navigate to Send Document.
+- Add a signing document using a template that includes at least two signer roles.
+- Set up one of the signer roles and leave the other blank.
+- Press Next to proceed through the setup.
+- Press the Back button to return to the Assign Signers to Roles page.
+- The unused role(s) should persist
+
+Fix bug that prevents the Edit Signature Elements dropdown from being properly drawn
+- From the landing page navigate to Set Up Templates.
+- Edit an existing template.
+- Click the `Edit Signature Elements button (three dots).
+- The type dropdown should be properly drawn and should show the possible options (signature, initials, radio button, etc).
+
+Fix broken MFA
+- Login with a user that uses MFA
+- The user should be prompted to enter their MFA codes and sign in as expected
+
+Update package, template, and document name lengths to a maximum of 128 characters
+- Create/update a package, template, or document name
+- The maximum length should be 128 characters
+
+Adjust the style of the tooltip seen when hovering over a package status in manage packages
+- Navigate to the manage packages page
+- Expand a package
+- Hover over the status
+- Long names will be put onto a new line
+
+Fix eSignerName having @CID for new user eSigner
+- Create a new eSigner from a global user
+- The Login Name should not have the control id in the textbox, but instead, should be appended to the end of the textbox
+
+- - - - - - -
+Version 8.23.0.8
+Compile Date 26 July 2024
+
+Add 8.23.0.07 QC fixes
+
+Add finished design meeting changes for CO1-T1
+
+Revert E22-T200 for future release
+
+- - - - - - -
+Version 8.23.0.7
+Compile Date 23 July 2024
+
+Add 8.23.0.6 QC fixes
+
+Prevent underscores prepending sigbox fieldnames from being submitted (E11-T1220)
+- Login
+- Go to send or edit a document in a package or template and get to the Set Up page
+- Test adding or editing sig elements and saving them with field names with underscores as the first character. This should be considered invalid, preventing you from saving/submitting.
+
+Collapsable/minimize edit some modal fields (E22-T200)
+- Log in to eDSAdmin.
+- Navigate to the "Manage Package" page.
+- Edit any document within a package.
+- Open the edit modal for any signature element by double-clicking on the element.
+- The position field editing is toggleable via the collapse button.
+
+Revert search - Part of C01-T1
+
+Revert CO1-T19
+
+- - - - - - -
+Version 8.23.0.6
+Compile Date 01 July 2024
+
+Add modified and last modified date columns to Manage Templates screen (CO1-T21)
+- Make sure you have the RAP Tmp v8.23.0.0 backend installed (or the version that contains CO1-T21)
+- Log in to the eDocAdmin site and navigate to the "Set Up Templates" tab.
+- Verify that the "Modified On" and "Modified By" columns have been added to the templates grid.
+
+Convert Login page to use forms (HF2 T883)
+- Test all combinations of logging in (considering MFA with text, google 2FA, email, and none)
+- Test resetting your password
+- Test edge cases for submitting the previous with intentionally wrong submissions, and they should provide error messages and page logs that are to be expected,
+
+Verify File Uploads with PHP (HF2-T885)
+- Upload a document on the site
+- The validation should occur in the server-side PHP instead of JS
+
+Added field alignment options on setup template screen (CO1-T23)
+- # TO TEST IN FUTURE RELEASE (have not added test point for this yet)
+
+Prevent the backend session from expiring on the sign element setup page (E11-T1217)
+For each of the following steps, get to the Set Up Document portion, and perform the following action:
+- Add an element
+- Set a timer for 15 minutes.
+- Occasionally you can move the element around to prevent the "refresh" prompt from displaying.
+- Once the timer expires, return to the page and continue editing the template.  You shouldn't The user will be logged out with a session expired error.
+**Testing Steps - 1**
+- Log in to the eDocAdmin site and navigate to the "Send Document" tab.
+- Add the Signing Document then click "Next" to proceed to the Select Signer
+page.
+- Use the add signer icon to include signers, then click "Next" to move to the Index Data page.
+- Click "Next" to proceed to the Set Up Document page,  and verify here.
+**Testing Steps - 2**
+- Log in to the eDocAdmin site and navigate to the "Set Up Template" tab.
+- Add the Signing Document then click "Next" to proceed to the Select Signer
+page.
+- Use the add signer icon to include signers, then click "Next" to move to the Index Data page.
+- Click "Next" to proceed to the Set Up Document page, and verify here.
+**Testing Steps - 3**
+- Log in to the eDocAdmin site and navigate to the "Manage Packages" tab.
+- Click on Edit Document button from the grid to proceed to the Edit Document page and verify here.
+**Testing Steps - 4**
+- Log in to the eDocAdmin site and navigate to the "Set Up Template" tab.
+- Click on Edit Template button from the grid to proceed to the Edit Template page and verify here.
+
+Add a way to edit the message on a requested document template (E11-T1093)
+- Log in
+- Make sure you have a requested document template available to edit.
+- Navigate to the "Set Up Template" tab and scroll to the aforementioned template.
+- Click on the requested type template row or the gear icon to open the edit requested message modal.
+- Update the request message, save it, and verify the changes.
+
+- - - - - - -
+Version 8.23.0.5
+Compile Date 13 June 2024
+
+Apply 8.23.0.4 QC fixes
+
+Convert JS REST calls to use PHP (HF2-T891)
+- Make sure you have the latest go_services installed and set in the 'eServices' setting in your config.php, as shown in config_sample.php
+- Go to the login page
+- Open the developer tools, opening the network tab
+- Proceed to login and visit affected pages, which is the settings page and places where we pull data on eSigners in document/template creation/managing (Send Document, Set Up Templates, Manage Package). Any instances in the network tab that call 'api/eSignersAPI.php' should not have request parameters that mention session/sessionid/SID or controlid/CID. Note that attempting to use an API platform such as postman to make calls to this endpoint will only return values anticipated by 'function' field, rather than being open to any kinds of API calls.
+
+Update pdf libraries (HF2-T890)
+- Change using webcommon pdf_js from 3.2.146 to 4.3.136
+  - Requires webcommon version 8.23.0.7 (includes HF2-T890 change)
+- Update jspdf to 2.5.1 and autotable to 3.8.2
+Test Steps:
+- Make sure you have installed webcommon version 8.23.0.7 and have followed the additional steps in the README.md file to add .mjs file support to IIS.
+- Login
+- Testing jspdf:
+  - Make sure a package is available to manage
+  - Go to manage packages, expand it, click on the 'Show Document History' button
+  - Click on the PDF button to export. It should download the PDF as expected.
+- Testing pdf_js:
+  - All document setup screens in eDSAdmin should retain functionality (ie, go to manage packages screen, proceed to the document setup, pdf should load normally)
+
+Only allow a single email address to be returned in calls to the backend (I50-T394)
+- Make sure you have go_microservices v8.23.0.3 installed
+- Login
+- Go to Send Document
+- Get to the point of adding signers. Do the following each for an existing eSigner and an existing non-eSigner
+  - Type in the name of the existing signer and press enter to auto-detect it. You should be presented with a modal to add the signer and it should not show their email. Clicking to add them should add them with the email associated with that name.
+- Go into settings -> Signers -> Signer groups
+- Loading a signer group should not show the email addresses of signer group members.
+
+Remove eServicesURL variable in the frontend (HF2-T888)
+- Login to eDoc Admin site and navigate to the setting page.
+- Verify that the eServicesURL JavaScript variable isn't accessible via the console when clicked into the Profile, Signers, and Users tabs.
+
+Require active session to perform actions in loadfile.php (HF2-T882)
+- Log in to the eDocAdmin site and navigate to the "Set Up Template" tab.
+- Add the Signing Document then click "Next" to proceed to the Select Signer
+page.
+- Use the add signer icon to include signers, then click "Next" to move to the Index Data page.
+- Click 'Next' to proceed to the Set Up Document page, add elements to the document, and click 'Next' to verify. File upload security has been enhanced by checking if the session is active. If the session is inactive, the user is logged out; otherwise, the file upload proceeds.
+
+Add Search Bar and Options (CO1-T1)
+- Make sure you have webcommon 8.23.0.6 installed
+- Login
+- Navigate through manage templates, package types, and packages.
+  - You should have a search at the top of the page to let you intuitively search by package type/workflow, status
+- Manage package screen to search by anything (number)
+- The Package Types page should have a search for 'Name', 'Tag', and 'Owner'
+
+Add description field in add and manage template pages (Progress for CO1-T11)
+- Make sure the RAP_Tmp backend is updated to v8.23.0.0 (the version that supports CO1-T11) or higher
+- Check if following option is enabled in the config file
+    `$cfg['Default']['EnableTemplateDescription']`
+- Login
+- Navigate to `Set Up Templates` section
+- Check if `Description` column is visible next to the `Template Name` column
+- Click on `Add` option to add a Signing Template
+- Check if `Description` text-area is visible next to the template name input box
+- Navigate back to `Set Up Templates` section
+- Click on gear icon(Edit Template)
+- Check if `Edit Description` button is visible and on click of it a modal to update description is displayed
+
+Automatically Share Documents to the Group the Sender is a Member of (CO1-T5)
+**SendDoc Tab**
+- Log in to the eDocAdmin site and navigate to the "Send Document" tab.
+- Add the Signing Document then click "Next" to proceed to the Select Signer
+page.
+- Use the add signer icon to include signers, then click "Next" to move to the Index Data page.
+- Click "Next" to proceed to the Set Up Document page, add elements to the document, and click "Next" again to navigate to the Sharing Data page. Users and Groups data here and verify if current user is member of any groups its automatically selected.
+**Set Up Template Tab**
+- Log in to the eDocAdmin site and navigate to the "Set Up Template" tab.
+- Add the Signing Document then click "Next" to proceed to the Select Signer
+page.
+- Use the add signer icon to include signers, then click "Next" to move to the Index Data page.
+- Click "Next" to proceed to the Set Up Document page, add elements to the document, and click "Next" again to navigate to the Sharing Data page. Users and Groups data here and verify if current user is member of any groups its automatically selected.
+
+Add Ability to See Signers and Signing Status in the Manage Packages Window (CO1-T36)
+- Make sure you have DXE7_RAP_Pkg v8.23.0.3 installed and the ini setting for [AlwaysSendSignerStatus] set to Y
+- Login
+- Make sure you have a variety of packages to test that contain combinations of the following:
+  - Multiple signers, single signers
+  - Reference documents
+  - Different statuses, ie; declined, out for signing, partial signed, completed
+- Go to Manage Packages
+- Expand packages, hovering your mouse over the status part for all documents in the package. A tooltip should always appear that follows your mouse, showing the status of every signer.
+
+- - - - - - -
+Version 8.23.0.4
+Compile Date 20 May 2024
+
+Apply 8.23.0.3 QC fixes
+
+Fix Able to drag and drop multiple documents to create signing template screen (E22-T92)
+- Go to the Set up Template page.
+- Select the "Add" button.
+- Choose the Signing Template option, then drag multiple documents and confirm.
+- Additionally, select the Reference Template option, drag multiple documents, and confirm.
+
+Fix plus icon not doing anything in indicies edit in eDSAdmin senddoc (E11-T1205)
+- Navigate to the senddoc page.
+- Create a requested document and click on Next.
+- Add a signer, click Next.
+- Click the indices icon (the notebook) to bring up the indices edit modal.
+- Select the "None" option for the Index Definition.
+- Click the "Add New Field" text and verify it.
+
+Fix templates name field loading concatenated name instead of full name (E11-T1206)
+- Navigate to the 'Set up Template page'.
+- Create a template with a very long name.
+- Visit the "Set Up Templates" page.
+- Note that the name of the template you created has been concatenated with ellipsis to not draw all characters.
+- Click on the name to edit it. Scroll all the way to the end. and verify it.
+
+Apply Beta/Production button requested changes for 8.23.0.3 (adds to E22-T195)
+- Recolor button
+- Only show button on the Landing page
+- Remember what site you selected last, redirecting you to the alternate site if you logged in/redirected to the old option.
+  - This functionality can be enabled/disabled via a checkbox next to the link button.
+- Rename config option to AltSiteSettings and restructure it
+**Testing steps:**
+- Make sure you have two sites set with `AltSiteSettings` config settings are set as they are presented in `config_sample.php`
+  - "Link" should be set to its alternate site
+- Log into site A
+- Upon getting redirected to the landing page, if you have "Version" and "Content" enabled, you should be presented with a dismissable modal presenting what "Content" was set to.
+  - This modal shouldn't show up again as long as you dismissed it and still have the cookie.
+- An input group with a button and a checkbox should be shown in the menu, only when you are on the landing page.
+  - Button should only show up if both "Link" and "Text" set for "Button" are set.
+  - The button should have whatever "Text" was set to.
+- Enable the checkbox and click the button, and you should be redirected to site B.
+- Open another tab and log into site A.
+- Upon logging in, you should be presented with a modal prompting to send you to site B. Allow the progress bar to complete, and you should be redirected to site B.
+  - The redirection modal should only show up if you reached the landing page by either logging in or handing off to it. It should never show up if the checkbox was disabled or if you were redirected there by clicking the alternate site's button.
+
+Add box sizing to canvas image to resolve the element position issue (use with Signing pages E11-T1203)
+- Fixes element positions not being accurate on signing pages (See signing pages E11-T1203 to test this)
+
+Added code for Reduce redundancy of the EnableSigextract option (E11-T1207)
+- Make sure that you have the latest GO services installed and running
+- Please add the `SigextractService` config setting to `config.php` as is featured in the `config_sample.php` file
+- Navigate to the send doc page, upload a signing document, and navigate to the Set Up page. There should be signing elements automatically generated.
+- Navigate to the setup template page and click on add button.
+- Select signing template and upload document, and navigate to the Set Up page. There should be signing elements automatically generated.
+
+Fix being unable to remove Memo Field data (E11-T1068)
+- (part of 8.23.0.3 QC fixes)
+Test Steps:
+- Reach any screen that uses the "Setup" document page.
+- Add a memo field.
+- Enter text into the Value section. 
+- Press Apply. 
+- Double click on the Memo field to open up the menu options.
+- Remove/delete the text in the Value section. 
+- Press Apply.
+- The text will remain in the Value section.
+- Entering numbers ("123345") into a memo field should also have no issues when applying, saving, leaving, and loading the saved package/template back up again.
+
+Create On-Demand User Audit Report (CO1-T4)
+- From the landing page, click "Settings"
+- Expand "Admin"
+- Click "User Reports" on the bottom
+- The user will be presented with a screen that includes the users/groups/permissions buttons as well as a small dialog that contains the number of users and groups followed by an 'Export' button
+- Clicking the various buttons will adjust the display of the table as follows
+Users  - displays only the users
+Groups - displays only the groups
+Permissions - displays only the permissions
+Users + Groups - displays users and the groups to which they belong
+Users + Permissions - displays users and the permissions that were explicitly given
+Groups + Permissions - displays groups and the permissions associated with that group
+Users + Groups + Permissions - displays the users' effective permissions (given permissions + the permissions associated with their group)
+
+Increase document/package/template name character limit (CO1-T19)
+- Make sure you have the version of MySQL configurator 8.23.0.4, which includes CO1-T19. Make sure you have run it to apply the new database settings.
+- Login
+- Go through the process of creating and renaming a template, package, the document within that package, and a pending doc. For each:
+  - Test using names 256 characters long, which should reject with a notice that the name is invalid because it's too long.
+  - Test using names 255 characters long, which should pass and save correctly.
+
+Expand signer selection vertically to fit whole screen (E11-T1201)
+-  Log in to the eDocAdmin site and navigate to the "Send Document" tab.
+- Add the Signing Document, Reference Document, and Request Document, then click "Next" to proceed to the Select Signer
+ page.
+- Use the add signer icon to include multiple signers, then click "Next" to move to the Index Data page.
+- Click "Next" to proceed to the Set Up Document page, add elements to the document, and click "Next" again to navigate to the Sharing Data page. Verify the Users and Groups data here. Click on "Next" to proceed to the Reference Document page.
+- On the Reference Document page, verify that the Signer list interface is dynamically resized. Click "Next" to move to the Requested Document page.
+- Similarly, on the Requested Document page, verify that the Signer list interface is dynamically resized.
+
+- - - - - - -
+Version 8.23.0.3
+Compile Date 29 April 2024
+
+Fix Edit Signing Elements window not loading correct element signer role (E11-T1191)
+- Go to the 'Set up Templates' tab.
+- Choose the "Edit Template" button in the templates grid.
+- Click the Edit Signature Elements button (three dots).
+- Verify the Signer column.
+
+Fix allow underscore in Bulk Send Job Name (E11-T1199)
+- Go to the 'Set up bulk send' page.
+- Select the 'New Bulk Send' button.
+- Enter a job name with an underscore or choose a template with an underscore in its name, then click on the next button and
+verify.
+
+Hide token-related logs for untokenized sessions (GA1-T515)
+- Make sure the backend your webapp is using is non-tokenized.
+- Clear the page logs for the webapp.
+- In the webapp, Login, then perform a few basic interactions that you'd expect to perform calls to services
+- Checking the page logs; There should not be token related logs.
+
+Add Beta/Live buttons and beta changes modal (E22-T195)
+- Make sure the following config settings are set, changing them as needed (You can find explanations for them in config_sample.php):
+```php
+$cfg['Default']['LiveAndBeta'] = array(
+	"LiveLink" => "http://172.23.1.212/sigadminqc/landing.php",
+	"Beta" => array(
+		"Link" => "http://172.23.1.212/SigAdmin8/landing.php",
+		"Version" => "8.23.0.0",
+		"Content" => "<h2>Example content to explain what stuff was changed</h2>
+		<ul>
+			<li><strong>Feature:</strong> Added new login functionality.</li>
+			<li><strong>Enhancement:</strong> Improved user interface for better accessibility.</li>
+			<li><strong>Fix:</strong> Resolved issue with form validation on the registration page.</li>
+			<li><strong>Performance:</strong> Optimized database queries for faster page loading.</li>
+			<li><strong>Security:</strong> Implemented CSRF protection for all forms.</li>
+		</ul>",
+	),
+);
+```
+- Log in
+- If you have "Version" and "Content" enabled and haven't been presented the modal yet, upon getting redirected to the landing page, you should be presented with a dismissable modal presenting what "Content" was set to.
+- Having "LiveLink" and "Link" set should enable the Live and Beta buttons, respectively, which should take you to the links set in those settings.
+
+- - - - - - -
+Version 8.23.0.2
+Compile Date 24 April 2024
+
+Fix js error on send with no enableEmailMe (fix for E11-T1182)
+- Leave `EnableEmailMe` config setting to false
+- Enter package creation
+- Click the send button
+- The expected behavior should take effect, rather than resulting in nothing happening and getting a JS console error
+
+Remove Edit Doc button on Reference Documents (E11-T997)
+- Generate a reference document from the "Send Doc" tab.
+- Navigate to the Review Document Information page using the "Next" button.
+- Verify the reference document icon.
+- Additionally, update the reference document name.
+
+Make webapp helpsite links use config (GA1-T512) by @plindberg-eDOC in https://github.com/eDOCInnovations/eDOCSignatureAdmin/pull/532
+- Visit all pages in the application, clicking the (?) icon in the top right corner. It should redirect to whatever was set in the new `$cfg['Default']['HelpLinks']` config setting.
+- Having neither the old `$cfg['Default']['HelpPageURL']` or the new `$cfg['Default']['HelpLinks']` set at all should result in the default url "https://edochelp.com/index.php?page=eDOCSignature/Welcome_to_eDOCSignature.md" getting used.
+
+Template Setup Edit Roles Dialog Window (E11-T1186)
+- Create a new template using the signing template.
+- Navigate to the review and create template page.
+- In the signing document section, click on the edit button.
+- Add a new signer role and proceed by clicking next.
+
+Fix creating event with unsupported value returning RAP error (E11-T1192)
+- Navigate to the "Manage Packages" tab.
+- Select "Edit Package" from the existing packages grid.
+- Access the Events section by clicking on the "Events" button.
+- Within the Events model, click on "Add New Event" and proceed to test various scenarios.
+- Test fractions. It should return "Days cannot be a fraction.".
+- Test a number longer than 6 digits. It should return "Days cannot exceed six digits in number.".
+
+
+- - - - - - -
+Version 8.23.0.1
+Compile Date 10 April 2024
+
+Clear the Cookies after Sending Pkg (E11-T1184)
+Add logic to clear the TextList cookie after sending a document
+- Add a document and select a different index from the "Select Index Def' dropdown
+- Add signing elements to the document setup screen. This should cause the TextList cookie to populate in the Application -> Cookies tab
+- Send the document for signing
+- After the document is sent, the TextList cookie should be deleted from the Cookies tab
+
+Fix blank signer dropdown (E11-T1183)
+Fix bug that causes blank options to be created in the signer role dropdown when creating new templates
+- Create a new template and navigate to the setup doc page
+- Add a new signing element and open its edit menu
+- The signers dropdown should be populated and not blank
+
+Fix blank signer role being remove (E22-T84)
+Fix bug that that causes signers to be removed when navigating back to the signer role page
+- Choose a package that has a template with at least 2 signer roles
+- Go to the 'Assign Signers to Roles' page
+- Fill in one signer and and leave the other blank
+- Click the Next button
+- Click the back button
+- The second signer should still be present
+
+Enforce CID when creating eSigner (E22-T41)
+Add logic that ensures that CID is added to new eSigners' usernames in the settings page
+- Navigate to Settings -> Signers -> eSigners
+- Click the 'Add' button
+- Adding a new user and clicking the 'Save' button will force the user to be created with the CID
+
+Hide Field Label (E22-T94)
+Add HideFieldLabel config setting to hide the Field Label option when editing a sig element
+- Start the document send process
+- Navigate to the setup page
+- Add a textbox/memo box/list box element
+- Edit the box options
+- If the option is set to true, the field label box will be hidden
+- If the option is set to false, the field label box will be visible
+
+Fix multiple "user" roles when creating template with fillable PDF (E22-T7)
+Fixes removing the doc if not deleting the temp file
+Fixes 'clearSelectedSigType is not defined' error when attempting to switch between roles on setup screen
+Test steps:
+- Make sure 'SkipConversion' config setting is set to false.
+- Start creating a signing template
+- Upload a Fillable doc to the template
+- Proceed until you reach the Set Up Template screen
+- When prompted with "Fillable fields were found for this document", the dropdown should have only one "User" option.
+
+Use browser context menu when rightclicking inside of input field (E11-T1101)
+- Create a document for signing
+- On the Set Up screen, add a userfield signing element and any other type of signing element
+- Right-clicking inside of the input part of the userfield element should use the native browser context menu, allowing you to copy and paste text
+- Right-clicking the part of the userfield element that isn't the input element or right-clicking any other signing element should bring up our custom setup context menu, allowing you to copy, paste, and delete elements in our setup page
+
+User Field Text cannot be highlighted using the mouse. (E11-T1111)
+- Generate a document for signature.
+- Within the Set Up screen, incorporate a user input textbox field alongside other signature elements.
+- Input the text into the textbox and attempt mouse-driven highlighting.
+
+
+- - - - - - -
+Version 8.23.0.0
+Compile Date 03 April 2024
+
+Pages refactor progress (NOT FINISHED - E11-T1085)
+- Do not need to test
+
+SU2-T143
+- No idea what this task is, it didn't come up in Zoho
+
+IDology-Limit the Number of Attempts (E11-T1060)
+Add ways to reset IDologyFailure counts:
+- Reset IDologyFailure count upon resetting a package
+- Add ID check failure reset button to list of signers for a package
+Need signing pages >= 8.23.0.0
+Testing steps:
+- Make sure the Signing pages 'IDologyLimit' config option is set to > 0
+- Submit a package for signing with iDology and begin signing it
+- Now in the iDology name/address filling step, fill out the matching name for the signer
+- Fill in an intentionally wrong address
+- You should get a notice that you failed signing and get kicked out after clicking okay
+- Repeat the signing process with intentionally wrong addresses for the amount of times the 'IDologyLimit' setting was at
+- Now whenever you attempt to sign (via handoff or inbox) you should be prevented from signing with a notice.
+  - When via handoff, it should kick you to the exit.php page with an explanation
+  - When inbox, you should get a dismissable notice when clicking on it in the inbox.
+ - You should be able to reset attempts per-user in eDSAdmin from the manage packages page whenever you reset a package or for users with the reset icon next to the iDology section
+
+Limit log sizes to 100MB instead of 2GB (E11-T618)
+- Log more than 100MB of data
+- Once you exceed that, that log should be deleted and a new one will replace it, logged with the latest logs.
+
+Autofill signing elements with sigextract service (E11-T1185)
+- Make sure sigextract_ms is set up and the following options in your config are set to the appropriate settings:
+  - `$cfg['db']['SigextractService']`
+  - `$cfg['Default']['EnableSigextract'] = true;`
+- Start the process for sending a document, upload a document
+- When you get to the signing elements part, some signing elements should be already autogenerated to appropriate parts of the document.
+
+Fix variable name in signergroups.php (E11-T1148 & E11-T1153)
+- The signer group settings page should properly load signers now.
+
+Select All Package Documents (CO1-T29)
+Add logic that selects all package documents by default
+- Navigate to the Manage Packages screen
+- Select a package that has multiple optional documents
+- Optional documents should be selected by default
+
+Signing Order Visual Updates (CO1-T20)
+Add sort by tier functionality
+- Create a package with multiple signers
+- Adjust the signers' tiers
+- On the final review screen, click the Edit Signers button to return to the signer set up screen
+- The signers should be sorted based on their tier (signing order)
+
+Validate Populate Email Fields (E11-T1156)
+Fix bug that causes the email fields to not validate correctly if the user uses the auto fill feature
+- Set up a document
+- On the signer set up page, enter at least 3 characters of a signer's name
+- Hit 'Enter'
+- When the signer field fills with pre-defined data, the email should validate
+
+Remove some PHP Warnings (E11-T654)
+Admin logs should have significantly less PHP warnings now
+
+Grey out SMS # field in user settings (E11-T1007)
+Added logic for graying out the SMS# input field in the settings when editing a user
+These values should all update each other whenever the changed in the user settings tab or the profile settings tab
+
+Fix bug that ignores the Tag cancel (E11-T1152)
+Fix bug that caused the cancel button to not do anything when click (i.e changes were still saved)
+- Navigate to Setup Templates
+- Add a document
+- Click on tags icon
+- Modify the tags
+- The changes will not apply unless 'save' is clicked
+
+Invalid Characters Save Bug (HF2-T839)
+Fix bug that shows the 'Tags Saved' popup even if there was a tag name validation error:
+- Navigate to the Admin tab
+- Navigate to the tags
+-  Edit a tag to have an unsupported character
+- Click Save
+An error modal should appear and no "Tags Saved" popup should appear at the bottom of the screen
+
+Make Package Sent modal static (E11-T1092)
+Modify the Package Sent notification modal so that clicking off of it will not close it
+- Send a package out for signing
+- Click the 'Send' button
+- Click off the modal
+- The modal will remain open until clicking 'OK' or the 'x' button
+
+Deselect Signer Fields on User Change (E11-T1157)
+Add logic to deselect sig element types when changing from a Signer to a User
+- On the document setup screen, select a signing field (i.e. signature)
+- Change the Signer to User
+The signing element type should be cleared and cannot be drawn
+
+Memo Value Bug (E11-T1068)
+Fix bug that prevented a blank value in memo fields
+- Add a memo field
+- Add text in the value
+- Save the memo
+- Edit the memo again
+- Delete the value
+- Save the memo again
+- The Memo should revert to the default value again
+
+Fix Bulk Send to Support Templates without Index Fields JS error (E11-T1168)
+Fixed a bulk send issue where a you couldn't send without having index fields, leading to a JS error and breaking navigation.
+- Create a new template and do not add any index fields.
+    This is managed during the template setup on the Index Data for (Document) page.
+- Proceed through the setup and save the template.
+- From the homepage, go to Bulk Send.
+- Set up a new Bulk Send using the newly created template.
+- Pressing Next should not lead to any JS console errors and navigation should not be broken.
+
+Fix select signers personal message draw issue (CO1-T22)
+Removes the "title" personal message button attribute
+- Make sure config setting 'EnablePersonalMessaging' is set to true
+- Start creating a package
+- On the adding signers screen, start editing a personal message and add html content
+- After saving the personal message, nothing in the users row should be broken.
+
+Corp One-Send Template Search/Filter Option (CO1-T28)
+Add a typematic search feature in the Template Search/Filter screen
+- From the eDS landing page, select the add button
+- Select 'Send Using a Template'
+- A template search field is now available
+- Typing in the search will filter relevant templates
+
+Fix Personal Message Save Button (E11-T1177)
+Add logic to save the personal message button separately from the rest of the package
+- Navigate to 'Manage Packages' and press the 'Edit Package' button.
+- Click the 'Message' icon and add text to the 'Personal Message' field.
+- Press 'Save'.
+- The signer's message will be updated without having to click on the 'Save' button in the package
+
+Default the checkbox mark type to 'x' (E22-T8)
+- Navigate to the document setup screen
+- Add a checkbox
+- Open the checkbox edit menu
+- Set the box to be checked by default
+- Close the dialog
+- The checkbox should have a 'x' instead of a circle mark
+
+Add Setting to Turn On/Off Email Me (E11-T1182)
+- Enable/Disable the 'EnableEmailMe' setting in the config.php file
+- If disabled, the 'Email Me' feature will not be present on the 'Review Document Information'
+
+- - - - - - -
+Version 8.22.0.17
+Compile Date 20 Mar 2024
+
+Fix Bulk Send to Support Templates without Index Fields JS error (E11-T1168)
+- Create a new template and do not add any index fields.
+    This is managed during the template setup on the Index Data for (Document) page.
+- Proceed through the setup and save the template.
+- From the homepage, go to Bulk Send.
+- Set up a new Bulk Send using the newly created template.
+- Pressing Next should not lead to any JS console errors and navigation should not be broken.
+
+- - - - - - -
+Version 8.22.0.16
+Compile Date 11 Mar 2024
+
+Fix signer tab in settings not being clickable and config settings not enabling tabs as expected (E11-T1162)
+- Enable any combination of these config settings while having admin permissions for viewing signers:
+$cfg['Default']['ShoweSigners']
+$cfg['Default']['ShowSignerGroups']
+$cfg['Default']['EnableBulkSend']
+Should always display "Signers" tab, so when all of them as false -> only display "Signers" tab
+ShoweSigners -> Enable "eSigners" tab
+ShowSignerGroups or EnableBulkSend -> enable "Signer Groups" tab
+- Tab collapse functionality should work when there is more than 1 tab and single-tab functionality should work when there is only 1 tab.
+
+- - - - - - -
+Version 8.22.0.15
+Compile Date 29 Feb 2024
+Fix for "Cannot read properties of null (reading 'style')" JS error on Setup page (E11-T1145)
+- Create or edit a document with sig elements
+- Rightclick -> Delete
+- Save, click next, or other navigation options and you should be able to continue without a console error
+Fix setup templates owner dropdown canceling (E11-T1150)
+- Go to Setup Templates
+- Select a different owner on a package
+- Click "No" when prompted to "Are you sure you would like to change the owner of this template?"
+- Package owner should go back to the previous owner
+
+- - - - - - -
+Version 8.22.0.14
+Compile Date 16 Feb 2024
+
+- Fix bug that causes to the second template to fail
+- Send two templates out for signing
+- During the signing process, the second template should load as expected
+
+- - - - - - -
+Version 8.22.0.13
+Compile Date 15 Feb 2024
+Fix javascript console invalid upload type error (QC fix for 8.22.0.12)
+- Specifically fixes the javascript error for when the document somehow reaches the backend with an invalid file type, as we weren`t exiting the code properly and appending js code, which would break the page.
+
+- - - - - - -
+Version 8.22.0.12
+Compile Date 06 Feb 2024
+
+QC fixes for 8.22.0.11
+- Fixed Send_Document helpsite links
+
+- - - - - - -
+Version 8.22.0.11
+Compile Date 24 Jan 2024
+
+- Update links for new Help Site (OD2-T5)
+
+- - - - - - -
+Version 8.22.0.10
+Compile Date 23 Jan 2024
+
+- Fix drag and dropping files on SendDoc page
+- Fix SendDoc page not prompting the user for selecting signers for Ref doc for multiple signers
+
+- - - - - - -
+Version 8.22.0.9
+Compile Date 12 Jan 2024
+
+Revert broken change for Search Package (E11-T993) #471
+- Open the Package Types page
+- The search button should not appear
+
+Version 8.22.0.8
+Compile Date 11 Jan 2024
+
+8.22.0.7 QC test point fixes in eDSAdmin 8.22.0.8:
+`Create a Package-Type Owner Dropdown Field`: Fixed in Signing 8.22.0.1
+`Error Creating Sig Box Records`: Fixed.
+`TIF`: Fixed.
+`DOC`: Not a page issue; Fixed by resolving `DXE7_WordToPDFSvc` setup. See Paul.
+`JPG`: Fixed.
+`Only Reference Document`: Fixed.
+`Placeholding Signing Element Names - Add Another Document`: Discussed w/Josh that we've planned to resolve this through an alternate solution in signing pages.
+
+- - - - - - -
+Version 8.22.0.7
+Compile Date 4 Jan 2024
+
+Fix tokenized handoffs using old tokens, thus erroring the user out
+
+Carry over iDOCVault trayapp register improvements.
+
+TIF drag and drop upload error fix
+- Send Document.
+- Click to Upload or drag and drop a TIF document (Signing and Reference)
+- TIF files should upload correctly
+
+Invalid document type upload fix
+- Send Document.
+- Click to Upload or drag and drop an unsupported document type like txt
+- A message explaining that it's an invalid type should come up.
+
+Only Reference Document fix
+- Create a new package or add documents to an existing package.
+- Upload or apply a Reference Document.
+- Proceed through the setup.
+- Adding only one signer should skip the "select signers" screen, going to the "Review" screen. Adding multiple signers should prompt you to select signers.
+
+Error Creating Sigbox Records fix
+- Send Document
+- Upload a signing document
+- Proceed to the edit document page
+- Quickly (before the page has time to fully load) apply a signing element.
+- Elements should never fail to be placed, and pressing Send should not log the user out with an error `Error creating sig box records`. Clicking again should add a signing element, proceeding through the setup the user should be able to send the document/package for eSign.
+
+- - - - - - -
+Version 8.22.0.6
+Compile Date 19 Dec 2023
+
+
+Sig Element Overlap Fix
+- Remove logic that prevents sig elements from being drawn on top of each other
+- On a document setup screen, attempt to draw multiple types of sig elements
+- Attempt to overlap other elements when drawing
+- The user should be able to overlap elements
+- Fix owner assignment and add template owner
+
+Set up a package type with no owner
+- Package Types will automatically set the owner to the user that created the first template in the package type
+
+On setup doc, if applying the template on a doc by pressing next it will take us to the Role Mapping screen.  On the Role mapping screen if we click on a personal message it will open a modal to edit the personal message.
+- If you press the personal message icon again it used to show another modal, which is now fixed.
+
+Fix requested Document Skipping indices page when set up with single signer (E11-T1035)
+- When setting up a package in eDS that includes a requested document, the indices page for the requested document used to be skipped if there was only one signer present.
+- You need to be able to access this page in order to edit indices. It is now changed so this page isn't skipped for single signers and forces that signer to be selected upon viewing it. You should also be able to edit them from the review page.

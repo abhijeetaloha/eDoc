@@ -1,0 +1,33 @@
+{
+  "name": "eDOCSignatureAdmin",
+  "version": "8.22.0.4",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -b",
+    "testone": "mocha -b test/t5_setuptemplate.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eDOCInnovations/eDOCSignatureAdmin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eDOCInnovations/eDOCSignatureAdmin/issues"
+  },
+  "homepage": "https://github.com/eDOCInnovations/eDOCSignatureAdmin#readme",
+  "dependencies": {
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2",
+    "selenium-webdriver": "^4.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "babel-loader": "^8.2.2",
+    "webpack": "^5.37.1",
+    "webpack-cli": "^4.7.0"
+  }
+}

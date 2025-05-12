@@ -1,0 +1,21 @@
+_Version_*
+config.php
+web.config
+package-lock.json
+node_modules
+.vs
+.vscode
+/test/lib/settings.js
+eDOCItInstalls
+
+#Devon's config file for testing
+settings_config.js
+
+
+test/lib/settings_config.js
+
+**/.DS_Store
+
+./.DS_Store/
+
+/.idea
