@@ -10,10 +10,6 @@ function doeServiceRequest($json)
     $json = json_encode($json);
 
     $userhost = getUserHost();
-
-    list($json, $_) = processURIForToken($json, null);
-    $decJ = json_decode($json, true);
-
     $res = '';
     if (isset($decJ['resource'])) {
         $res = $decJ['resource'];

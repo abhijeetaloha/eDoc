@@ -1,9 +1,6 @@
 <?php
 require_once('common/commonfunctions.php');
 
-getOriginNav(__DIR__);
-checkLogin();
-
 $ipRest = getSetting('AllowedIP');
 if (isset($ipRest)) {
 	if (count($ipRest) > 0) {
