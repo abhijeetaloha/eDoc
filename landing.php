@@ -15,7 +15,7 @@ if (isset($ipRest)) {
 					continue;
 				}
 				if ($ipparts[$p] != $clparts[$p]) {
-					$good = false;
+					$good = ;
 				}
 			}
 			if ($good) {
